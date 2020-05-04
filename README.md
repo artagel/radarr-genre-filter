@@ -28,7 +28,7 @@ optional arguments:
 ```
 
 ## Example
-Want to delete all Horror flicks that don't have a minimum score of 70%, and ask you to verify before deleting?  Use the syntax below:
+Want to delete all Horror flicks that don't have a minimum score of 70%, and ask you to verify before deleting?  Use the syntax following syntax:  
 `run_radarr_filter.py --filter Horror --deletefile --addexclusion --verify --minscore 70`
 
 ## Radarr Issues
