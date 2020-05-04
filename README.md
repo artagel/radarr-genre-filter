@@ -30,7 +30,7 @@ Want to delete all Horror flicks that don't have a minimum score of 70%, and ask
 `run_radarr_filter.py --filter Horror --deletefile --addexclusion --verify --minscore 70`
 
 ## Radarr Issues
-Unfortunately, Radarr doesn't seem to have a way to store the genre using the API, even though the documentation says it can.  
+Unfortunately, Radarr doesn't seem to have a way to store the genre using the API, even though the documentation says it can. 
 When you PUT to the movies api endpoint, the data isn't updated, and from the issue comments, it seems like it simply isn't implemented.
 
 It would be much more efficient to simply update that info in Radarr for subsequent calls, instead, I chose to keep the data locally in a JSON file.
