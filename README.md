@@ -1,8 +1,6 @@
 # radarr-genre-filter
 Clean specific Genres from your Radar wanted/downloaded library.
 
-The program will enrich the Radarr database with genre information, which Radarr currently doesn't grab.
-
 ## Install
 `pip3 install -r requirements.txt`
 
