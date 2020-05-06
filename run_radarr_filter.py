@@ -92,11 +92,17 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
                     else:
                         # No verification needed, let's delete
                         remove_movie(movie.get('id'), movie['titleSlug'], deletefile, exclude)
+        update_last_id(movie.get('id'))
         if count % 10 == 0:
             log.info('[+] {}/{}'.format(count, movie_cnt))
 
 
-def remove_movie(id: int, title: str, deletefile: bool, exclude: bool):
+def update_last_id(idf: int): 
+    with open(settings.last_id, 'w') as f:
+        f.write(idf)
+
+
+def remove_movie(idf: int, title: str, deletefile: bool, exclude: bool):
     log.info('[+] Deleting movie: {} '
              'Deleting Files: {} '
              'Adding Exclusion: {}'.format(title, deletefile, exclude))
@@ -106,7 +112,7 @@ def remove_movie(id: int, title: str, deletefile: bool, exclude: bool):
         del_piece = '&deleteFiles=true'
     if exclude:
         exclude_piece = '&addExclusion=true'
-    url = settings.radarr_url + '/movie/{}?apikey={}{}{}'.format(id, settings.radarr_api_key, del_piece, exclude_piece)
+    url = settings.radarr_url + '/movie/{}?apikey={}{}{}'.format(idf, settings.radarr_api_key, del_piece, exclude_piece)
     http_delete(url)
 
 

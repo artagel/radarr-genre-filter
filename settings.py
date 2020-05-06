@@ -16,3 +16,5 @@ radarr_url = os.environ['RADARR_API_URL']
 radarr_api_key = os.environ['RADARR_API_KEY']
 # Turn this False if you really need to.
 verify_ssl_certs = True
+# Keep track of the last ID we processed
+last_id = os.path.join(scriptdir, 'last_id')
