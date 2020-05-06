@@ -97,9 +97,9 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
             log.info('[+] {}/{}'.format(count, movie_cnt))
 
 
-def update_last_id(idf: int): 
+def update_last_id(idf: int):
     with open(settings.last_id, 'w') as f:
-        f.write(idf)
+        f.write(str(idf))
 
 
 def remove_movie(idf: int, title: str, deletefile: bool, exclude: bool):
