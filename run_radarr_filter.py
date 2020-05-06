@@ -60,7 +60,6 @@ def radarr_get_movies() -> list:
 def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, verify: bool, minscore: int):
     filters = [x.lower() for x in filters]
     always = False
-    genre_db = read_genres_db()
     log.info('[+] Getting your list of movies from Radarr')
     movies = radarr_get_movies()
     movie_cnt = len(movies)
@@ -73,12 +72,6 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
             continue
         tmdb_genres = [x['name'] for x in tmdb_info.get('genres', [])]
         tmdb_score = tmdb_info.get('vote_average', 0) * 10
-        if sorted(genre_db.get(movie['tmdbId'], [])) == sorted(tmdb_genres):
-            continue
-        else:
-            log.debug('[+] Updating genres for {}'.format(movie['titleSlug']))
-            genre_db[movie['tmdbId']] = sorted(tmdb_genres)
-            write_genres_db(genre_db)
         for genre in tmdb_genres:
             if genre.lower() in filters:
                 if delete or deletefile:
@@ -115,21 +108,6 @@ def remove_movie(id: int, title: str, deletefile: bool, exclude: bool):
         exclude_piece = '&addExclusion=true'
     url = settings.radarr_url + '/movie/{}?apikey={}{}{}'.format(id, settings.radarr_api_key, del_piece, exclude_piece)
     http_delete(url)
-
-
-def write_genres_db(genre_db: dict):
-    log.debug('[+] Writing genre db: {}'.format(settings.genre_json))
-    with open(settings.genre_json, 'w') as f:
-        f.write(json.dumps(genre_db, indent=4))
-
-
-def read_genres_db() -> dict:
-    log.debug('[+] Reading genre db: {}'.format(settings.genre_json))
-    if os.path.isfile(settings.genre_json):
-        with open(settings.genre_json) as f:
-            return json.load(f)
-    else:
-        return {}
 
 
 def http_get(url: str) -> bytes:

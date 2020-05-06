@@ -16,6 +16,3 @@ radarr_url = os.environ['RADARR_API_URL']
 radarr_api_key = os.environ['RADARR_API_KEY']
 # Turn this False if you really need to.
 verify_ssl_certs = True
-# The file where we save the state of the genres, 
-# since Radarr doesn't allow us to store it via the API properly
-genre_json = os.path.join(scriptdir, 'genre_db.json')
