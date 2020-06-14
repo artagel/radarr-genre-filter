@@ -62,7 +62,7 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
     always = False
     log.info('[+] Getting your list of movies from Radarr')
     movies = radarr_get_movies()
-    movie_cnt = len(movies)
+    movie_cnt = movies[-1].get('id')
     log.info('[+] Found {} movies'.format(movie_cnt))
     cur_id = 0
     last_id = get_last_id()
