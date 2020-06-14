@@ -68,9 +68,9 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
     last_id = get_last_id()
     for movie in movies:
         if cur_id <= last_id:
-            cur_id = int(movie.get('id'), cur_id + 1)
+            cur_id = int(movie.get('id', cur_id + 1))
             continue
-        cur_id = int(movie.get('id'), cur_id + 1)
+        cur_id = int(movie.get('id', cur_id + 1))
         tmdb_info = tmdb_get_movie_info(movie['tmdbId'])
         if not tmdb_info:
             continue
