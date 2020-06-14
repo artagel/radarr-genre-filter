@@ -64,13 +64,13 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
     movies = radarr_get_movies()
     movie_cnt = len(movies)
     log.info('[+] Found {} movies'.format(movie_cnt))
-    count = 0
+    cur_id = 0
     last_id = get_last_id()
     for movie in movies:
-        if count <= last_id:
-            count += 1
+        if cur_id <= last_id:
+            cur_id = int(movie.get('id'), cur_id + 1)
             continue
-        count += 1
+        cur_id = int(movie.get('id'), cur_id + 1)
         tmdb_info = tmdb_get_movie_info(movie['tmdbId'])
         if not tmdb_info:
             continue
@@ -96,9 +96,9 @@ def filter_radarr(filters: list, delete: bool, deletefile: bool, exclude: bool, 
                     else:
                         # No verification needed, let's delete
                         remove_movie(movie.get('id'), movie['titleSlug'], deletefile, exclude)
-        update_last_id(movie.get('id'))
-        if count % 10 == 0:
-            log.info('[+] {}/{}'.format(count, movie_cnt))
+            update_last_id(movie.get('id'))
+        if cur_id % 10 == 0:
+            log.info('[+] {}/{}'.format(cur_id, movie_cnt))
 
 
 def get_last_id() -> int:
