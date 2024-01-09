@@ -178,8 +178,8 @@ if __name__ == "__main__":
                         help="Verify each item to delete by asking first.",
                         action='store_true')
     parser.add_argument("-m", "--minscore",
-                        help="Keep the movie if the minimum score (%%) is equal or higher than provided.",
-                        action='store', type=int, default=0)
+                        help="Keep the movie if the minimum score (%%) is equal or higher than provided. This is a percentage written as an integeter.",
+                        action='store', type=int, default=100)
     args = parser.parse_args()
     if args.list:
         tmdb_get_genres()
