@@ -45,7 +45,7 @@ def tmdb_get_movie_info(tmdbid: int) -> dict:
 
 
 def radarr_get_movies() -> list:
-    url = settings.radarr_url + '/movie?apikey={}'.format(settings.radarr_api_key)
+    url = settings.radarr_url + '/api/v3/movie?apikey={}'.format(settings.radarr_api_key)
     response = http_get(url)
     # Radarr doesn't chunk or paginate their response.  This request gets ALL data for all movies in your database.
     if response:
